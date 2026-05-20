@@ -55,7 +55,8 @@ export default {
     }
 
     return requestHandler(request, {
-      cloudflare: { env, ctx, cf: request.cf },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      cloudflare: { env, ctx, cf: request.cf as any },
     });
   },
 } satisfies ExportedHandler<Env>;

@@ -9,7 +9,10 @@
   ],
   "vars": {
     "PUBLIC_ENVIRONMENT": "development",
-    "SUBGRAPH_API_URL": "https://api.thegraph.com/subgraphs/name/treasure-project/bridgeworld"
+    "SUBGRAPH_API_URL": "https://api.thegraph.com/subgraphs/name/treasure-project/bridgeworld",
+    "PUBLIC_ENABLE_TESTNET": "false",
+    "PUBLIC_THIRDWEB_KEY": "",
+    "PUBLIC_WALLETCONNECT_PROJECT_ID": ""
   },
   "env": {
     "staging": {
