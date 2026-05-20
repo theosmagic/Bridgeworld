@@ -55,6 +55,25 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-[#0a0a0f] text-white font-mono">
 
+      {/* Video splash — full viewport, 1080×1440 portrait centered */}
+      <section className="relative h-screen w-full bg-black flex items-center justify-center overflow-hidden">
+        <video
+          src="/Logo_s.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="h-full w-auto max-w-full object-contain"
+          style={{ aspectRatio: '1080 / 1440' }}
+        />
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/30 text-xs tracking-widest animate-bounce">
+          <span>scroll</span>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M6 1v10M1 6l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
+      </section>
+
       {/* Header */}
       <header className="flex items-center justify-between px-6 py-4 border-b border-white/10">
         <div className="flex items-center gap-3">
