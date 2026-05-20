@@ -1,0 +1,32 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "bridgeworld-lol",
+  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_date": "2025-07-09",
+  "main": "./workers/app.ts",
+  "routes": [
+    { "pattern": "treasure.bridgeworld.lol/*", "zone_name": "bridgeworld.lol" }
+  ],
+  "vars": {
+    "PUBLIC_ENVIRONMENT": "development",
+    "SUBGRAPH_API_URL": "https://api.thegraph.com/subgraphs/name/treasure-project/bridgeworld"
+  },
+  "env": {
+    "staging": {
+      "vars": {
+        "PUBLIC_ENVIRONMENT": "staging",
+        "SUBGRAPH_API_URL": "https://api.thegraph.com/subgraphs/name/treasure-project/bridgeworld"
+      }
+    },
+    "production": {
+      "vars": {
+        "PUBLIC_ENVIRONMENT": "production",
+        "SUBGRAPH_API_URL": "https://api.thegraph.com/subgraphs/name/treasure-project/bridgeworld"
+      }
+    }
+  },
+  "observability": {
+    "enabled": true
+  },
+  "placement": { "mode": "smart" }
+}

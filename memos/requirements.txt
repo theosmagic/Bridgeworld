@@ -1,0 +1,14 @@
+# MemOS Skill Dependencies
+# Pinned versions for security and reproducibility
+#
+# eth-account: Ethereum account management (address derivation)
+# cryptography: HKDF key derivation, ChaCha20Poly1305 AEAD
+#
+# Note: Arweave uploads use Turbo (Node.js) - see scripts/turbo/
+
+eth-account==0.11.3
+cryptography==42.0.5
+
+# Development/Testing dependencies
+pytest==8.0.0
+pytest-cov==4.1.0

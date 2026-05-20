@@ -1,0 +1,16 @@
+{
+  "name": "memos-turbo-uploader",
+  "version": "2.0.0",
+  "description": "Turbo upload helper for MemOS skill with x402 support",
+  "type": "module",
+  "scripts": {
+    "upload": "node upload.mjs"
+  },
+  "dependencies": {
+    "@ardrive/turbo-sdk": "^1.19.0",
+    "@x402/core": "^2.4.0",
+    "@x402/evm": "^2.4.0",
+    "@x402/fetch": "^2.4.0",
+    "viem": "^2.21.0"
+  }
+}
