@@ -1,0 +1,66 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.1.1/schema.json",
+  "vcs": {
+    "enabled": false,
+    "clientKind": "git",
+    "useIgnoreFile": false
+  },
+  "files": {
+    "ignoreUnknown": false
+  },
+  "formatter": {
+    "enabled": true,
+    "useEditorconfig": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "lineEnding": "lf",
+    "lineWidth": 80
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "trailingCommas": "all",
+      "semicolons": "always",
+      "quoteStyle": "single"
+    },
+    "globals": []
+  },
+  "linter": {
+    "rules": {
+      "a11y": {
+        "noSvgWithoutTitle": "off",
+        "noLabelWithoutControl": "off",
+        "useMediaCaption": "off",
+        "useButtonType": "off"
+      },
+      "correctness": {
+        "noSwitchDeclarations": "off",
+        "noUndeclaredVariables": "off",
+        "noUnusedVariables": "off"
+      },
+      "style": {
+        "useTemplate": "off",
+        "noUnusedTemplateLiteral": "off",
+        "noParameterAssign": "off",
+        "noRestrictedGlobals": {
+          "level": "off",
+          "options": {}
+        },
+        "useDefaultParameterLast": "off"
+      },
+      "suspicious": {
+        "noAsyncPromiseExecutor": "error",
+        "noConsole": "off",
+        "noEmptyBlockStatements": "error",
+        "noExplicitAny": "off"
+      }
+    }
+  }
+}
