@@ -1,0 +1,47 @@
+{
+  "name": "web3-template",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:staging": "react-router build --mode staging",
+    "build:production": "react-router build --mode production",
+    "cf-typegen": "wrangler types",
+    "deploy:staging": "pnpm run build:staging && wrangler deploy",
+    "deploy:production": "pnpm run build:production && wrangler deploy",
+    "dev": "react-router dev",
+    "postinstall": "npm run cf-typegen",
+    "preview": "pnpm run build && vite preview",
+    "typecheck": "npm run cf-typegen && react-router typegen && tsc -b"
+  },
+  "packageManager": "pnpm@10.16.1",
+  "dependencies": {
+    "@tanstack/react-query": "^5.83.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "connectkit": "^1.9.1",
+    "isbot": "^5.1.27",
+    "motion": "^12.23.3",
+    "motion-plus": "^1.4.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-router": "^7.9.3",
+    "tailwind-merge": "^3.3.1",
+    "viem": "^2.33.3",
+    "wagmi": "^2.17.5"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.1.1",
+    "@cloudflare/vite-plugin": "^1.13.8",
+    "@react-router/dev": "^7.9.3",
+    "@tailwindcss/vite": "^4.1.11",
+    "@types/node": "^20",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "tailwindcss": "^4.1.11",
+    "typescript": "^5.8.3",
+    "vite": "^7.1.1",
+    "vite-plugin-icons-spritesheet": "^3.0.1",
+    "vite-tsconfig-paths": "^5.1.4",
+    "wrangler": "^4.40.3"
+  }
+}
