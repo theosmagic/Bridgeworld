@@ -9,3 +9,22 @@ __pycache__/
 .env.*
 *.enc
 manifest.json
+.env.deploy
+
+# Foundry / deploy artifacts
+broadcast/
+cache/
+out/
+safe-tx/
+
+# Local tooling (wallet derivation / checks — never commit)
+derive_*.mjs
+check_*.mjs
+test_*.mjs
+de421.bsp
+
+# Build caches
+.react-router/
+.agents/
+*.tsbuildinfo
+package-lock.json

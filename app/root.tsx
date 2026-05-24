@@ -11,10 +11,42 @@ import {
 
 import type { Route } from './+types/root';
 import './app.css';
+import { useEffect } from 'react';
 import { cookieToInitialState, type State } from 'wagmi';
 import { getConfig } from '~/lib/wagmi';
 import { Web3Provider } from './components/web3';
 import { getEnv } from './env.server';
+
+// Farcaster Mini App embed meta (fc:miniapp v1 + fc:frame legacy)
+const FC_MINIAPP = JSON.stringify({
+  version: '1',
+  imageUrl: 'https://bridgeworld.lol/BridgeWorld.png',
+  button: {
+    title: 'Enter BridgeWorld',
+    action: {
+      type: 'launch_miniapp',
+      name: 'BridgeWorld',
+      url: 'https://bridgeworld.lol',
+      splashImageUrl: 'https://bridgeworld.lol/BridgeWorld.png',
+      splashBackgroundColor: '#000000',
+    },
+  },
+});
+
+const FC_FRAME_LEGACY = JSON.stringify({
+  version: 'next',
+  imageUrl: 'https://bridgeworld.lol/BridgeWorld.png',
+  button: {
+    title: 'Enter BridgeWorld',
+    action: {
+      type: 'launch_frame',
+      name: 'BridgeWorld',
+      url: 'https://bridgeworld.lol',
+      splashImageUrl: 'https://bridgeworld.lol/BridgeWorld.png',
+      splashBackgroundColor: '#000000',
+    },
+  },
+});
 
 export const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -52,6 +84,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="fc:miniapp" content={FC_MINIAPP} />
+        <meta name="fc:frame" content={FC_FRAME_LEGACY} />
         <Meta />
         <Links />
       </head>
@@ -71,6 +105,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App({ loaderData }: Route.ComponentProps) {
+  useEffect(() => {
+    import('@farcaster/miniapp-sdk').then(({ default: sdk }) => {
+      sdk.isInMiniApp().then((yes) => { if (yes) sdk.actions.ready(); });
+    });
+  }, []);
+
   return (
     <Web3Provider initialState={loaderData.initialState as State | undefined}>
       <Outlet />

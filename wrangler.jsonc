@@ -5,32 +5,48 @@
   "compatibility_date": "2025-07-09",
   "main": "./workers/app.ts",
   "routes": [
+    // Main site
+    { "pattern": "bridgeworld.lol/*",          "zone_name": "bridgeworld.lol" },
+    // Fren creation gateway — treasure subdomain
+    // Each Fren gets /fren/:frenId — Covenant-anchored project space
+    // Observer layer (Θεός below · Σ℧ΛΘ above) watches silently from outside Fren perception
     { "pattern": "treasure.bridgeworld.lol/*", "zone_name": "bridgeworld.lol" }
   ],
+  // NOTE: SUBGRAPH_API_URL — TheGraph hosted service (api.thegraph.com) is DEAD.
+  // Dev/staging: local Graph Node at system76.ht.local:8000
+  // Production:  wrangler secret put SUBGRAPH_API_URL  (set to Goldsky or self-hosted endpoint)
   "vars": {
     "PUBLIC_ENVIRONMENT": "development",
-    "SUBGRAPH_API_URL": "https://api.thegraph.com/subgraphs/name/treasure-project/bridgeworld",
+    "SUBGRAPH_API_URL": "http://system76.ht.local:8000/subgraphs/name/bridgeworld",
     "PUBLIC_ENABLE_TESTNET": "false",
     "PUBLIC_THIRDWEB_KEY": "",
-    "PUBLIC_WALLETCONNECT_PROJECT_ID": ""
+    "PUBLIC_WALLETCONNECT_PROJECT_ID": "",
+    // Sovereign RPC: Coinbase Developer Platform (Base) — key from YubiKey.txt
+    "BASE_MAINNET_RPC_ENDPOINT": "https://api.developer.coinbase.com/rpc/v1/base/rAb0A0QoNAQB8WQwopuZ4yxkKm7hhQPf",
+    // Sovereign RPC: Abstract chain — public fallback (treasure-node not reachable from CF edge)
+    "ABSTRACT_RPC_ENDPOINT": "https://api.mainnet.abs.xyz"
   },
   "env": {
     "staging": {
       "vars": {
         "PUBLIC_ENVIRONMENT": "staging",
-        "SUBGRAPH_API_URL": "https://api.thegraph.com/subgraphs/name/treasure-project/bridgeworld",
+        "SUBGRAPH_API_URL": "http://system76.ht.local:8000/subgraphs/name/bridgeworld",
         "PUBLIC_ENABLE_TESTNET": "false",
         "PUBLIC_THIRDWEB_KEY": "",
-        "PUBLIC_WALLETCONNECT_PROJECT_ID": ""
+        "PUBLIC_WALLETCONNECT_PROJECT_ID": "",
+        "BASE_MAINNET_RPC_ENDPOINT": "https://api.developer.coinbase.com/rpc/v1/base/rAb0A0QoNAQB8WQwopuZ4yxkKm7hhQPf",
+        "ABSTRACT_RPC_ENDPOINT": "https://api.mainnet.abs.xyz"
       }
     },
     "production": {
       "vars": {
         "PUBLIC_ENVIRONMENT": "production",
-        "SUBGRAPH_API_URL": "https://api.thegraph.com/subgraphs/name/treasure-project/bridgeworld",
+        "SUBGRAPH_API_URL": "http://system76.ht.local:8000/subgraphs/name/bridgeworld",
         "PUBLIC_ENABLE_TESTNET": "false",
         "PUBLIC_THIRDWEB_KEY": "",
-        "PUBLIC_WALLETCONNECT_PROJECT_ID": ""
+        "PUBLIC_WALLETCONNECT_PROJECT_ID": "",
+        "BASE_MAINNET_RPC_ENDPOINT": "https://api.developer.coinbase.com/rpc/v1/base/rAb0A0QoNAQB8WQwopuZ4yxkKm7hhQPf",
+        "ABSTRACT_RPC_ENDPOINT": "https://api.mainnet.abs.xyz"
       }
     }
   },

@@ -4,6 +4,8 @@ import { base } from 'viem/chains';
 import { useAccount, useReadContract, useSwitchChain, useWriteContract } from 'wagmi';
 import { parseUnits, formatUnits } from 'viem';
 import { SAOL, ERC20_ABI } from '~/data/ecosystem';
+import { OpenClaimsButton } from '~/components/OpenClaimsButton';
+import { RecoverSAOLButton } from '~/components/RecoverSAOLButton';
 
 export default function Index() {
   const { address, isConnected, chain } = useAccount();
@@ -174,6 +176,10 @@ export default function Index() {
             <ConnectKitButton />
           </section>
         )}
+
+        {/* Admin: openClaims + recover — visible only to SAOL_CLAIM owner */}
+        <OpenClaimsButton />
+        <RecoverSAOLButton />
 
         {/* Arc */}
         <section className="text-center text-white/20 text-xs tracking-widest space-y-1 pt-4 border-t border-white/10">

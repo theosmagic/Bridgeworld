@@ -60,3 +60,37 @@ export const ERC20_ABI = [
 ] as const;
 
 export const IPNS = 'k51qzi5uqu5dgu4makc3vj55pcnkzvvq5ako1kk8u6udon6j85eypuudm4psus';
+
+export const SAOL_CLAIM = {
+  address: '0x68834321d2697ddfab1952123b19b49927cc079f' as `0x${string}`,
+  owner:   '0xc3a1f83d299e47816635bb8b3ebe40cdb8e87a37' as `0x${string}`,
+  chain:   8453,
+} as const;
+
+export const SAOL_CLAIM_ABI = [
+  { name: 'openClaims',  type: 'function', stateMutability: 'nonpayable', inputs: [], outputs: [] },
+  { name: 'closeClaims', type: 'function', stateMutability: 'nonpayable', inputs: [], outputs: [] },
+  { name: 'claimOpen',   type: 'function', stateMutability: 'view',       inputs: [], outputs: [{ type: 'bool' }] },
+  { name: 'hasClaimed',  type: 'function', stateMutability: 'view',
+    inputs: [{ name: 'account', type: 'address' }], outputs: [{ type: 'bool' }] },
+  { name: 'claim', type: 'function', stateMutability: 'nonpayable',
+    inputs: [
+      { name: 'account', type: 'address' },
+      { name: 'amount',  type: 'uint256' },
+      { name: 'proof',   type: 'bytes32[]' },
+    ],
+    outputs: [] },
+  { name: 'recover', type: 'function', stateMutability: 'nonpayable',
+    inputs: [
+      { name: 'token',  type: 'address' },
+      { name: 'amount', type: 'uint256' },
+    ],
+    outputs: [] },
+  { name: 'ClaimToggled', type: 'event',
+    inputs: [{ name: 'open', type: 'bool', indexed: false }] },
+  { name: 'Recovered', type: 'event',
+    inputs: [
+      { name: 'token',  type: 'address', indexed: true },
+      { name: 'amount', type: 'uint256', indexed: false },
+    ] },
+] as const;

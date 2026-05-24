@@ -1,0 +1,31 @@
+{
+  "accountAssociation": {
+    "header":    "eyJmaWQiOjMzMzE4ODYsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHgyMDAxZGFhODI1MTJjMjllY2VhMWVhOTQyMzRmYWM3YzQwYmFjNThkIn0",
+    "payload":   "eyJkb21haW4iOiJicmlkZ2V3b3JsZC5sb2wifQ",
+    "signature": "PENDING"
+  },
+  "miniapp": {
+    "version":               "1",
+    "name":                  "BridgeWorld",
+    "iconUrl":               "https://bridgeworld.lol/favicon.ico",
+    "homeUrl":               "https://bridgeworld.lol",
+    "imageUrl":              "https://bridgeworld.lol/BridgeWorld.png",
+    "buttonTitle":           "Enter BridgeWorld",
+    "splashImageUrl":        "https://bridgeworld.lol/BridgeWorld.png",
+    "splashBackgroundColor": "#000000",
+    "description":           "Sovereign avatar economy — SAOL · Bridgeworld · Abstract chain",
+    "requiredChains":        ["eip155:8453", "eip155:2741"],
+    "requiredCapabilities":  ["actions.signIn"],
+    "webhookUrl":            "https://bridgeworld.lol/api/farcaster/webhook"
+  },
+  "frame": {
+    "version":               "1",
+    "name":                  "BridgeWorld",
+    "iconUrl":               "https://bridgeworld.lol/favicon.ico",
+    "homeUrl":               "https://bridgeworld.lol",
+    "imageUrl":              "https://bridgeworld.lol/BridgeWorld.png",
+    "buttonTitle":           "Enter BridgeWorld",
+    "splashImageUrl":        "https://bridgeworld.lol/BridgeWorld.png",
+    "splashBackgroundColor": "#000000"
+  }
+}
