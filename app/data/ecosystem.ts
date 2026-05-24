@@ -8,7 +8,7 @@ export interface ProjectManifest {
 }
 
 export const ecosystemProject: ProjectManifest = {
-  name: 'Bridgeworld.lol',
+  name: 'Bridgeworld',
   type: 'AI Agent & Game Console',
   description:
     'Sovereign reconstruction of Bridgeworld Cycles 1 & 2 — Harvester staking mechanics and Golem autonomous agent systems on Abstract Chain.',

@@ -1,4 +1,4 @@
-# Bridgeworld.lol
+# Bridgeworld
 
 Sovereign reconstruction of the Bridgeworld Cycles — deployed at **treasure.bridgeworld.lol**
 
