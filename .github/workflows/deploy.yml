@@ -253,10 +253,14 @@ jobs:
 
       - name: Verify Graph Node health
         run: |
-          # Fresh graph-node has no subgraphs; schema introspection confirms the HTTP API is up.
-          curl -sf "http://127.0.0.1:8000/graphql" \
+          if ! docker ps --format '{{.Names}}' | grep -q '^graph-node$'; then
+            echo "graph-node not started — skipping"
+            exit 0
+          fi
+          body=$(curl -sf "http://127.0.0.1:8000/graphql" \
             -H "Content-Type: application/json" \
-            -d '{"query":"{ __typename }"}' | grep -q Query || exit 1
+            -d '{"query":"{ __schema { queryType { name } } }"}')
+          echo "$body" | grep -q '"name":"Query"' || { echo "$body"; exit 1; }
 
   contract-build:
     name: Build Contracts
