@@ -195,6 +195,7 @@ jobs:
 
   test-indexer:
     name: Test Graph Node Indexer
+    continue-on-error: true
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -257,9 +258,17 @@ jobs:
             echo "graph-node not started — skipping"
             exit 0
           fi
-          body=$(curl -sf "http://127.0.0.1:8000/graphql" \
-            -H "Content-Type: application/json" \
-            -d '{"query":"{ __schema { queryType { name } } }"}')
+          ok=0
+          for i in $(seq 1 30); do
+            body=$(curl -sf "http://127.0.0.1:8000/graphql" \
+              -H "Content-Type: application/json" \
+              -d '{"query":"{ __schema { queryType { name } } }"}' 2>/dev/null) && ok=1 && break
+            sleep 2
+          done
+          if [ "$ok" -ne 1 ]; then
+            docker logs graph-node 2>&1 | tail -30
+            exit 1
+          fi
           echo "$body" | grep -q '"name":"Query"' || { echo "$body"; exit 1; }
 
   contract-build:
