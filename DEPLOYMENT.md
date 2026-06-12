@@ -83,6 +83,21 @@ pnpm run deploy:production
 
 This pushes the Cloudflare Worker + React Router SSR bundle to the edge.
 
+### GitHub Pages (static SPA)
+
+GitHub Pages serves the **IPFS-compatible static build** (`pnpm run build:ipfs` → `build/client/`).
+Enable in repo **Settings → Pages → Source: GitHub Actions** (workflow `.github/workflows/pages.yml`).
+
+**Domain verification (Cloudflare DNS):** add the TXT token GitHub provides. On `bridgeworld.lol` apex:
+
+| Type | Name | Value |
+|------|------|--------|
+| TXT | `@` | `r6ygzgsoyb55dbzyxe3m7pc724` (GitHub Pages verification) |
+
+Keep Worker routes on `bridgeworld.lol` / `treasure.bridgeworld.lol` for the live SSR app; use a **subdomain** (e.g. `pages.bridgeworld.lol` → `theosmagic.github.io`) if apex would conflict with Cloudflare Workers.
+
+After merge to `main`, Pages deploy runs automatically or via **Actions → GitHub Pages → Run workflow**.
+
 ---
 
 ## Architecture

@@ -19,8 +19,18 @@ on:
   workflow_dispatch:
   push:
     branches: [ "main" ]
+    paths:
+      - 'memos/**'
+      - '.pyre_configuration'
+      - 'requirements.txt'
+      - 'memos/requirements.txt'
   pull_request:
     branches: [ "main" ]
+    paths:
+      - 'memos/**'
+      - '.pyre_configuration'
+      - 'requirements.txt'
+      - 'memos/requirements.txt'
 
 permissions:
     contents: read
@@ -40,7 +50,5 @@ jobs:
       - name: Run Pyre
         uses: facebook/pyre-action@60697a7858f7cc8470d8cc494a3cf2ad6b06560d
         with:
-          # To customize these inputs:
-          # See https://github.com/facebook/pyre-action#inputs
-          repo-directory: './'
+          repo-directory: './memos'
           requirements-path: 'requirements.txt'
