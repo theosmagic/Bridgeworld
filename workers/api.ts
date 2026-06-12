@@ -14,6 +14,7 @@
 import { ecosystemProject } from '../app/data/ecosystem';
 import { handleArchivistAPI } from './archivist';
 import { handleClaimEdge } from './claim';
+import { hasGenesisLegion } from './lib/bridgeworld-legion';
 
 export async function handleAPI(request: Request, env: Env): Promise<Response | null> {
   const url = new URL(request.url);
@@ -27,6 +28,25 @@ export async function handleAPI(request: Request, env: Env): Promise<Response | 
   // ── Subgraph proxy — keeps SUBGRAPH_API_URL server-side ──────────────
   if (url.pathname === '/api/subgraph' && request.method === 'POST') {
     return handleSubgraph(request, env);
+  }
+
+  // ── Genesis Legion verify (TreasureProject/treasure-functions parity) ─
+  if (url.pathname === '/api/bridgeworld/genesis-legion' && request.method === 'GET') {
+    const wallets = (url.searchParams.get('wallets') ?? '')
+      .split(',')
+      .map((w) => w.trim())
+      .filter(Boolean);
+    try {
+      const success = await hasGenesisLegion(wallets, env.SUBGRAPH_API_URL);
+      return new Response(JSON.stringify({ success, wallets }), {
+        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      });
+    } catch (err) {
+      return new Response(
+        JSON.stringify({ success: false, error: err instanceof Error ? err.message : 'subgraph error' }),
+        { status: 502, headers: { 'Content-Type': 'application/json' } },
+      );
+    }
   }
 
   // ── Ecosystem manifest ────────────────────────────────────────────────

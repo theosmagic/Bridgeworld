@@ -185,7 +185,7 @@ jobs:
         continue-on-error: true
         run: |
           sleep 10
-          curl -fsS --retry 5 --retry-delay 3 https://treasure.bridgeworld.lol/ \
+          curl -fsS --retry 5 --retry-delay 3 https://treasure.bridgeworld.lol/api/manifest \
             || curl -fsS --retry 3 https://bridgeworld.lol/covenant.phase0.json \
             || echo "Production verify skipped (DNS propagation)"
 
