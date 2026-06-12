@@ -22,6 +22,7 @@ permissions:
 
 jobs:
     CodeScan:
+        if: ${{ secrets.CODESCAN_AUTH_TOKEN != '' }}
         permissions:
           contents: read # for actions/checkout to fetch code
           security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
@@ -31,6 +32,7 @@ jobs:
             -   name: Checkout repository
                 uses: actions/checkout@v4
             -   name: Set up Java 17
+                id: setup-java
                 uses: actions/setup-java@v4
                 with:
                     distribution: temurin
@@ -44,10 +46,14 @@ jobs:
                     restore-keys: ${{ runner.os }}-sonar
             -   name: Run Analysis
                 uses: codescan-io/codescan-scanner-action@5b2e8c5683ef6a5adc8fa3b7950bb07debccce12
+                env:
+                    JAVA_HOME: ${{ steps.setup-java.outputs.path }}
+                    SONAR_SCANNER_OPTS: '-Djava.awt.headless=true'
                 with:
                     login: ${{ secrets.CODESCAN_AUTH_TOKEN }}
                     organization: ${{ secrets.CODESCAN_ORGANIZATION_KEY }}
                     projectKey: ${{ secrets.CODESCAN_PROJECT_KEY }}
+                continue-on-error: ${{ secrets.CODESCAN_AUTH_TOKEN == '' }}
             -   name: Upload SARIF file
                 uses: github/codeql-action/upload-sarif@v3
                 with:
