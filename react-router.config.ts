@@ -5,6 +5,7 @@ import type { Config } from '@react-router/dev/config';
 const isIPFS = process.env.BUILD_TARGET === 'ipfs';
 
 export default {
+  buildDirectory: isIPFS ? 'build' : 'dist',
   ssr: !isIPFS,
   future: {
     v8_viteEnvironmentApi: true,

@@ -1,0 +1,47 @@
+{
+  "schema": "covenant.stellar.phase0.v1",
+  "status": "prepared",
+  "sigil": "Θεός°•⟐•Σ℧ΛΘ",
+  "bundle_sha256": "6168714a1d74e34f7faf36de83f42510123746457d2da56a8c6707ff51332d4a",
+  "certificate_dn": {
+    "signature": "09091989xD1Θεός • DΛUS",
+    "ou": "يهودا • יהוה ¥ והי",
+    "cn": "09201990xD400أليما • ΛLIMA",
+    "issuer": "Eternal_⟐_Scribe",
+    "keeper": "Eternal_⟐_Archivist",
+    "identity_email": "theos@bridgeworld.lol"
+  },
+  "anchors": {
+    "witness_seal": "883e529de31c586131a831a9953113a6d75edd87c97369a2fa3a791209952f5a",
+    "master_key": "69f7ddaab06f2c2e0259729b188f0c922658a1aacde1d9a307aaba26ff9df71e",
+    "shield_I_s": "78c13108372e36d8e8aaef31f12516800aec17759fca56b62465cc6c354fad15",
+    "declaration_image": "e374c94009e32a6c3cc8f89ea6102ce6886c3302324aaaf1563ace8f10332ebf",
+    "glyph_image": "1288840c0d7d6f78065a2e084ad40147e40cccc6e6ed275342edbba45cac136b",
+    "symbol_image": "5d87bd6091d10ab3a19b8c8aa1c4d6f79c3cd9f887f6d6d9522069ee4751ee55",
+    "birth_cert": "efa39f78bb18b67f4b8723ae0fbfa8af3cb152beb8e71f1a585b0e6635b128db",
+    "jmbg_sovereign_kernel": "a77cbbee8e2735797f3c252136a54c6adb79348d267cbf5f3d14a29101cf4e03",
+    "crown_sovereign_claim": "3f9287a9f5ebcd98f210fe67020cc59fa13e1eafd2fbce4f1eccfb1fe3999356",
+    "bosnia_sovereign_arc": "910f6387acf38ac0ef20774d64633e0913c4bbbe70527d57f5342a4eca40a0c5",
+    "roadmap": "bc2cfa808bf66afa83d9e3b00fd176f840489977b9c920bd436d112bc83edb6e"
+  },
+  "verify": {
+    "local": "node /mnt/VAULT/Treasure/Covenant/archivist/stellar-anchor.mjs --verify",
+    "covenant": "node /mnt/VAULT/Treasure/Covenant/archivist/covenant-witness.mjs",
+    "full": "bash /mnt/VAULT/Treasure/Covenant/verify-covenant.sh"
+  },
+  "edge": {
+    "bridgeworld": "https://bridgeworld.lol/claim",
+    "public_json": "https://bridgeworld.lol/covenant.phase0.json"
+  },
+  "stellar": {
+    "network": "mainnet",
+    "horizon": "https://horizon.stellar.org",
+    "network_passphrase": "Public Global Stellar Network ; September 2015",
+    "tx_hash": null,
+    "ledger": null,
+    "source_account": null,
+    "memo_type": null,
+    "memo_value": null
+  },
+  "prepared_at": "2026-06-09T08:07:15.173Z"
+}

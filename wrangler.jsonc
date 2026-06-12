@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "bridgeworld-lol",
+  "account_id": "7e40a8af4a6129833c1cb6f5bcbfd662",
   "compatibility_flags": ["nodejs_compat"],
   "compatibility_date": "2025-07-09",
   "main": "./workers/app.ts",
@@ -24,7 +25,13 @@
     // Sovereign RPC: Coinbase Developer Platform (Base) — key from YubiKey.txt
     "BASE_MAINNET_RPC_ENDPOINT": "https://api.developer.coinbase.com/rpc/v1/base/rAb0A0QoNAQB8WQwopuZ4yxkKm7hhQPf",
     // Sovereign RPC: Abstract chain — public fallback (treasure-node not reachable from CF edge)
-    "ABSTRACT_RPC_ENDPOINT": "https://api.mainnet.abs.xyz"
+    "ABSTRACT_RPC_ENDPOINT": "https://api.mainnet.abs.xyz",
+    // IPNS bridge — DNSLink + ipfs.bridgeworld.lol (see ⟐/YubiKey.txt, scripts/cloudflare-dns-ipfs.mjs)
+    "CLOUDFLARE_IPNS_BRIDGEWORLD": "k51qzi5uqu5dgu4makc3vj55pcnkzvvq5ako1kk8u6udon6j85eypuudm4psus",
+    "AGENT_WS_BACKEND": "",
+    "FARCASTER_MANIFEST_HEADER": "",
+    "FARCASTER_MANIFEST_PAYLOAD": "",
+    "FARCASTER_MANIFEST_SIGNATURE": "",
   },
   "env": {
     "staging": {
@@ -35,7 +42,12 @@
         "PUBLIC_THIRDWEB_KEY": "",
         "PUBLIC_WALLETCONNECT_PROJECT_ID": "",
         "BASE_MAINNET_RPC_ENDPOINT": "https://api.developer.coinbase.com/rpc/v1/base/rAb0A0QoNAQB8WQwopuZ4yxkKm7hhQPf",
-        "ABSTRACT_RPC_ENDPOINT": "https://api.mainnet.abs.xyz"
+        "ABSTRACT_RPC_ENDPOINT": "https://api.mainnet.abs.xyz",
+        "CLOUDFLARE_IPNS_BRIDGEWORLD": "k51qzi5uqu5dgu4makc3vj55pcnkzvvq5ako1kk8u6udon6j85eypuudm4psus",
+        "AGENT_WS_BACKEND": "",
+        "FARCASTER_MANIFEST_HEADER": "",
+        "FARCASTER_MANIFEST_PAYLOAD": "",
+        "FARCASTER_MANIFEST_SIGNATURE": ""
       }
     },
     "production": {
@@ -46,7 +58,12 @@
         "PUBLIC_THIRDWEB_KEY": "",
         "PUBLIC_WALLETCONNECT_PROJECT_ID": "",
         "BASE_MAINNET_RPC_ENDPOINT": "https://api.developer.coinbase.com/rpc/v1/base/rAb0A0QoNAQB8WQwopuZ4yxkKm7hhQPf",
-        "ABSTRACT_RPC_ENDPOINT": "https://api.mainnet.abs.xyz"
+        "ABSTRACT_RPC_ENDPOINT": "https://api.mainnet.abs.xyz",
+        "CLOUDFLARE_IPNS_BRIDGEWORLD": "k51qzi5uqu5dgu4makc3vj55pcnkzvvq5ako1kk8u6udon6j85eypuudm4psus",
+        "AGENT_WS_BACKEND": "",
+        "FARCASTER_MANIFEST_HEADER": "",
+        "FARCASTER_MANIFEST_PAYLOAD": "",
+        "FARCASTER_MANIFEST_SIGNATURE": ""
       }
     }
   },

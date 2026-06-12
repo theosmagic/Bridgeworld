@@ -1,0 +1,27 @@
+# Multi-chain config for graph-node v0.36 (single `ethereum` env only supports one network)
+# Creds match the seeded Docker Desktop pass keychain values (see scripts/indexer-up.sh)
+
+[store]
+[store.primary]
+connection = "postgresql://graph-node:graph-node@postgres:5432/graph-node"
+pool_size = 10
+
+[chains]
+ingestor = "default"
+
+[chains.abstract]
+shard = "primary"
+provider = [
+  { label = "abstract-rpc-0", details = { type = "web3", url = "https://api.mainnet.abs.xyz", features = [] } },
+]
+
+[chains.arbitrum-one]
+shard = "primary"
+provider = [
+  { label = "arbitrum-rpc-0", details = { type = "web3", url = "https://arb1.arbitrum.io/rpc", features = [] } },
+]
+
+[deployment]
+[[deployment.rule]]
+shard = "primary"
+indexers = ["default"]

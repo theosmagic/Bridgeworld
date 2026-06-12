@@ -117,6 +117,11 @@ console.log(`  ud domains dns record add bridgeworld.nft --type IPFS_REDIRECT --
 console.log('');
 console.log('Or point to IPFS CID (if pinned separately):');
 console.log('  ud domains dns record add bridgeworld.nft --type IPFS_REDIRECT --value ipfs://<CID>');
+console.log('');
+console.log('Cloudflare IPNS bridge (⟐/YubiKey.txt CLOUDFLARE_IPNS_BRIDGEWORLD):');
+console.log('  ipfs name publish /ipfs/<CID> --key=bridgeworld  # or publish manifest to existing IPNS key');
+console.log('  pnpm run cf:dns-ipfs:apply');
+console.log('  https://ipfs.bridgeworld.lol/ipns/k51qzi5uqu5dgu4makc3vj55pcnkzvvq5ako1kk8u6udon6j85eypuudm4psus');
 
 function guessContentType(file) {
   if (file.endsWith('.html'))   return 'text/html';
