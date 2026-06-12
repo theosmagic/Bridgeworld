@@ -6,15 +6,23 @@
  *   POST /api/subgraph           — server-side subgraph proxy (keeps API keys out of browser)
  *   GET  /api/manifest           — ecosystem project manifest
  *   GET  /api/agent/:id          — MemOS agent state gateway (Cycle 2)
- *        /agents/chat/*          — Golem WebSocket relay guard (426)
+ *        /agents/chat/*          — Golem WebSocket (see agent-ws.ts)
  *   GET  /.well-known/farcaster.json — Farcaster Mini App manifest (needs env secrets)
  *   POST /api/farcaster/webhook  — Farcaster event webhook
  */
 
 import { ecosystemProject } from '../app/data/ecosystem';
+import { handleArchivistAPI } from './archivist';
+import { handleClaimEdge } from './claim';
 
-export function handleAPI(request: Request, env: Env): Response | null {
+export async function handleAPI(request: Request, env: Env): Promise<Response | null> {
   const url = new URL(request.url);
+
+  const claim = handleClaimEdge(request);
+  if (claim) return claim;
+
+  const archivist = await handleArchivistAPI(request, url);
+  if (archivist) return archivist;
 
   // ── Subgraph proxy — keeps SUBGRAPH_API_URL server-side ──────────────
   if (url.pathname === '/api/subgraph' && request.method === 'POST') {
@@ -37,11 +45,6 @@ export function handleAPI(request: Request, env: Env): Response | null {
     );
   }
 
-  // ── Golem WebSocket relay guard ───────────────────────────────────────
-  if (url.pathname.startsWith('/agents/chat/')) {
-    return new Response('WebSocket upgrade required', { status: 426 });
-  }
-
   // ── Farcaster Mini App manifest ───────────────────────────────────────
   // FARCASTER_MANIFEST_HEADER / _PAYLOAD / _SIGNATURE must be set via:
   //   wrangler secret put FARCASTER_MANIFEST_HEADER
@@ -55,7 +58,7 @@ export function handleAPI(request: Request, env: Env): Response | null {
 
   // ── Farcaster webhook ─────────────────────────────────────────────────
   if (url.pathname === '/api/farcaster/webhook' && request.method === 'POST') {
-    return handleFarcasterWebhook(request);
+    return await handleFarcasterWebhook(request);
   }
 
   return null; // not an API route

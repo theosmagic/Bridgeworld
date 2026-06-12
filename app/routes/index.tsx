@@ -181,6 +181,19 @@ export default function Index() {
         <OpenClaimsButton />
         <RecoverSAOLButton />
 
+        {/* Covenant claim */}
+        <section className="text-center space-y-4">
+          <a
+            href="/claim"
+            className="inline-block px-8 py-4 rounded-xl border border-orange-500/40 bg-orange-950/30 hover:bg-orange-950/50 text-sm font-bold tracking-widest transition-colors"
+          >
+            OUR CLAIM →
+          </a>
+          <p className="text-white/30 text-xs max-w-md mx-auto">
+            Phase 0 — Covenant identity · JMBG kernel · witness chain · verify locally
+          </p>
+        </section>
+
         {/* Arc */}
         <section className="text-center text-white/20 text-xs tracking-widest space-y-1 pt-4 border-t border-white/10">
           <div>𐡀 → ⟐ → 𐡕</div>

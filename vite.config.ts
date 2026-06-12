@@ -1,3 +1,5 @@
+import { mkdirSync, symlinkSync, existsSync } from 'fs';
+import { join } from 'path';
 import { cloudflare } from '@cloudflare/vite-plugin';
 import { reactRouter } from '@react-router/dev/vite';
 import tailwindcss from '@tailwindcss/vite';
@@ -31,6 +33,52 @@ export default defineConfig(() => {
     plugins: [
       // CF plugin only for SSR/Worker builds — incompatible with SPA/IPFS mode
       !isIPFS && cloudflare({ viteEnvironment: { name: 'ssr' } }),
+      // CF plugin emits client→dist/client; react-router SSR still reads build/client
+      !isIPFS && {
+        name: 'covenant-cf-build-bridge',
+        apply: 'build' as const,
+        enforce: 'pre' as const,
+        buildStart(opts: { ssr?: boolean }) {
+          if (opts?.ssr) {
+            const distClientVite = join(process.cwd(), 'dist/client/.vite');
+            const buildClientVite = join(process.cwd(), 'build/client/.vite');
+            if (existsSync(distClientVite)) {
+              mkdirSync(join(process.cwd(), 'build/client'), { recursive: true });
+              try {
+                symlinkSync(distClientVite, buildClientVite, 'dir');
+              } catch {
+                /* already linked */
+              }
+            }
+          }
+        },
+        writeBundle() {
+          const root = process.cwd();
+          const ssrDir = join(root, 'dist/ssr');
+          const serverDir = join(root, 'dist/server');
+          mkdirSync(serverDir, { recursive: true });
+
+          const ssrVite = join(ssrDir, '.vite');
+          const serverVite = join(serverDir, '.vite');
+          if (existsSync(ssrVite) && !existsSync(serverVite)) {
+            try {
+              symlinkSync(ssrVite, serverVite, 'dir');
+            } catch {
+              /* already linked */
+            }
+          }
+
+          const ssrAssets = join(ssrDir, 'assets');
+          const serverAssets = join(serverDir, 'assets');
+          if (existsSync(ssrAssets) && !existsSync(serverAssets)) {
+            try {
+              symlinkSync(ssrAssets, serverAssets, 'dir');
+            } catch {
+              /* already linked */
+            }
+          }
+        },
+      },
       cfWorkersShim,
       tailwindcss(),
       reactRouter(),

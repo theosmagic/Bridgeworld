@@ -1,3 +1,5 @@
+import { CANONICAL_FREN_ID, SUMMON_AGENT_URL, WALLETS } from '~/lib/wallet-roles';
+
 export interface ProjectManifest {
   name: string;
   type: string;
@@ -5,7 +7,34 @@ export interface ProjectManifest {
   url: string;
   gameUrl: string;
   image: string;
+  fren?: FrenAgentManifest;
 }
+
+export interface FrenAgentManifest {
+  name: string;
+  token: string;
+  contract: string;
+  wallet: string;
+  operator: string;
+  operatorBasename: string;
+  summonUrl: string;
+  bridgeworldFrenPath: string;
+  frenId: string;
+  chainId: number;
+}
+
+export const FREN_AGENT: FrenAgentManifest = {
+  name:                'Σ℧ΛΘ',
+  token:               'SAOL',
+  contract:            '0x641b94f656a147f8285b5c3cc96d15d1ab23a941',
+  wallet:              WALLETS.frenWallet,
+  operator:            WALLETS.covenantSmart,
+  operatorBasename:    'the0x4rchivist.base.eth',
+  summonUrl:           SUMMON_AGENT_URL,
+  bridgeworldFrenPath: `/fren/${CANONICAL_FREN_ID}`,
+  frenId:              CANONICAL_FREN_ID,
+  chainId:             8453,
+};
 
 export const ecosystemProject: ProjectManifest = {
   name: 'Bridgeworld',
@@ -15,6 +44,7 @@ export const ecosystemProject: ProjectManifest = {
   url: 'treasure.bridgeworld.lol',
   gameUrl: 'https://treasure.bridgeworld.lol/play',
   image: '/img/bridgeworld-reconstruction.webp',
+  fren: FREN_AGENT,
 };
 
 export const CHAINS = {

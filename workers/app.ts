@@ -1,4 +1,5 @@
 import { createRequestHandler, type ServerBuild } from 'react-router';
+import { handleAgentWebSocket } from './agent-ws';
 import { handleAPI } from './api';
 
 declare module 'react-router' {
@@ -18,8 +19,12 @@ const requestHandler = createRequestHandler(
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+    // ── Golem / MemOS WebSocket (before API + SSR) ───────────────────
+    const wsResponse = await handleAgentWebSocket(request, env);
+    if (wsResponse) return wsResponse;
+
     // ── API routes (subgraph proxy, manifests, agents, webhooks) ─────
-    const apiResponse = handleAPI(request, env);
+    const apiResponse = await handleAPI(request, env);
     if (apiResponse) return apiResponse;
 
     // ── React Router SSR (Cloudflare Workers only) ───────────────────

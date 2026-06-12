@@ -1,8 +1,10 @@
 # Bridgeworld
 
-Sovereign reconstruction of the Bridgeworld Cycles — deployed at **treasure.bridgeworld.lol**
+Sovereign **community** reconstruction of the Bridgeworld Cycles — deployed at **treasure.bridgeworld.lol**
 
-Built from the canonical [TreasureProject](https://github.com/TreasureProject) stack by [theosmagic](https://github.com/theosmagic).
+Built from the canonical [TreasureProject](https://github.com/TreasureProject) blueprint ([`../Project`](../Project)) by [theosmagic](https://github.com/theosmagic).
+
+> **Context:** [treasure.lol](https://treasure.lol) / [summon.wtf](https://summon.wtf) are Treasure’s Autonomys + **fren** agent stack. Bridgeworld (2019–2025: bridgeworld.gg, treasure.bridgeworld.lol) was community puzzle/lore—Treasure later focused on Autonomys and left Bridgeworld for solvers. This repo is an independent continuation of that community layer. See [`../README.md`](../README.md).
 
 ---
 
@@ -25,8 +27,32 @@ Cloudflare Worker ──── Graph Node (treasure-subgraphs)
          ├── /api/subgraph    → subgraph proxy
          ├── /api/manifest    → ecosystem manifest
          ├── /api/agent/:id   → MemOS agent state (Arweave-backed)
-         └── /agents/chat/:id → Golem WebSocket relay
+         └── /agents/chat/external:{id} → Golem WebSocket (agent-ws.ts)
 ```
+
+### Web4 migration (from Covenant systems report)
+
+| Phase | Action | Command |
+|-------|--------|---------|
+| 0 | Cloudflare edge (current) | `npx wrangler deploy --env production` |
+| 1 | IPFS + UD `bridgeworld.nft` | `npm run build:ipfs` · `npm run publish:ipfs-bridge` · [`docs/WEB3-GATEWAY.md`](./docs/WEB3-GATEWAY.md) |
+| 2 | Covenant archives → Autonomys | `pnpm run autonomys:store` |
+| 3 | Triple host + H-line timestamps | Observatory + sever CF-only dependency |
+
+Set optional Golem upstream: `AGENT_WS_BACKEND=ws://host:port` in `wrangler.jsonc`.
+
+---
+
+## Covenant verification (before deploy)
+
+```bash
+bash ../Covenant/verify-covenant.sh
+# or from Bridgeworld:
+pnpm run covenant:stack
+pnpm run covenant:witness
+```
+
+Master systems doc: [`../Covenant/archivist/COGNITIVE-SUBSTRATE-SYSTEMS-ENGINEERING.md`](../Covenant/archivist/COGNITIVE-SUBSTRATE-SYSTEMS-ENGINEERING.md)
 
 ---
 
@@ -98,5 +124,6 @@ python memos.py backup --input memory/
 ## Identity
 
 - **ABOVE**: `theosmagic.base.eth` · `bridgeworld.nft` · `bridgeworld@ethermail.io`
+- **Web3 wallet map**: [`docs/WEB3-IDENTITY.md`](./docs/WEB3-IDENTITY.md) (UD account vs Custody Lite vs MetaMask / Safe / Ledger / PassKey)
 - **WITHIN**: Covenant MCP @ `system76.ht.local:8010`
 - **BELOW**: YubiKey PIV P-256 · `system76.ht.local`

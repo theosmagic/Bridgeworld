@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "bridgeworld-claim",
+  "account_id": "7e40a8af4a6129833c1cb6f5bcbfd662",
+  "main": "./workers/claim-edge.ts",
+  "compatibility_date": "2025-07-09",
+  "routes": [
+    { "pattern": "bridgeworld.lol/claim", "zone_name": "bridgeworld.lol" },
+    { "pattern": "bridgeworld.lol/claim/*", "zone_name": "bridgeworld.lol" },
+    { "pattern": "bridgeworld.lol/covenant.phase0.json", "zone_name": "bridgeworld.lol" }
+  ]
+}

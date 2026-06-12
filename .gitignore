@@ -28,3 +28,4 @@ de421.bsp
 .agents/
 *.tsbuildinfo
 package-lock.json
+memos/.venv/
