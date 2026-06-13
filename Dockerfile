@@ -1,15 +1,32 @@
 # Multi-stage build for Bridgeworld portal deployment
 
-# Stage 1: Build environment
-FROM node:20-alpine as builder
+# Stage 1: Development environment (for local testing)
+FROM node:20-alpine AS dev
+
+WORKDIR /app
+
+RUN npm install -g pnpm@10.16.1
+
+COPY pnpm-lock.yaml pnpm-workspace.yaml package.json wrangler.jsonc ./
+
+RUN pnpm install --frozen-lockfile
+
+COPY . .
+
+EXPOSE 5173
+
+CMD ["pnpm", "dev"]
+
+# Stage 2: Build environment
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
 # Install pnpm
 RUN npm install -g pnpm@10.16.1
 
-# Copy package manifests
-COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
+# Copy package manifests and wrangler config (needed by postinstall script)
+COPY pnpm-lock.yaml pnpm-workspace.yaml package.json wrangler.jsonc ./
 
 # Install dependencies (frozen lockfile for reproducibility)
 RUN pnpm install --frozen-lockfile
@@ -27,8 +44,8 @@ RUN if [ "$BUILD_ENV" = "staging" ]; then \
       pnpm run build:production; \
     fi
 
-# Stage 2: Runtime environment (wrangler deploy)
-FROM node:20-alpine as deployer
+# Stage 3: Runtime environment (wrangler deploy) — last stage, built by Railway by default
+FROM node:20-alpine AS deployer
 
 WORKDIR /app
 
@@ -53,20 +70,3 @@ ENV CLOUDFLARE_ENV=${BUILD_ENV}
 ENV WRANGLER_ENV=${BUILD_ENV}
 
 CMD [ "sh", "-c", "wrangler deploy --env $WRANGLER_ENV" ]
-
-# Stage 3: Development environment (for local testing)
-FROM node:20-alpine as dev
-
-WORKDIR /app
-
-RUN npm install -g pnpm@10.16.1
-
-COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
-
-RUN pnpm install --frozen-lockfile
-
-COPY . .
-
-EXPOSE 5173
-
-CMD ["pnpm", "dev"]
